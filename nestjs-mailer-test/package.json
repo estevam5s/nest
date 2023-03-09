@@ -24,7 +24,7 @@
     "@nestjs-modules/mailer": "1.5.1",
     "@nestjs/common": "7.6.11",
     "@nestjs/config": "0.6.3",
-    "@nestjs/core": "7.6.11",
+    "@nestjs/core": "9.0.5",
     "@nestjs/platform-express": "7.6.11",
     "nodemailer": "6.4.17",
     "reflect-metadata": "0.1.13",
