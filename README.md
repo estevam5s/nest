@@ -1,3 +1,31 @@
+import subprocess
+import os
+from pathlib import Path
+
+class ShapefileProcessor:
+    def __init__(self):
+        self.diretorio_destino = "C:/Users/estevam.estagio/Desktop/projeto-completoV8/ibge/src/backend/menu/arquivosRede"
+
+    def _executar_mapeamento_ps1(self):
+        script_path = "caminho/para/mapeamento.ps1"
+        try:
+            subprocess.run(["powershell.exe", "-ExecutionPolicy", "Unrestricted", script_path, self.diretorio_destino], check=True)
+            print("Script mapeamento.ps1 executado com sucesso.")
+        except subprocess.CalledProcessError as e:
+            print("Erro ao executar mapeamento.ps1:", e)
+
+    def process_shapefiles(self, diretorio_raiz):
+        self._executar_mapeamento_ps1()  # Primeiro executa o script para preparar os arquivos
+
+        # Restante do seu método process_shapefiles
+        # ...
+
+# Uso
+processor = ShapefileProcessor()
+processor.process_shapefiles("caminho/do/diretorio/raiz")
+
+
+
 ## Nest JS Tutorials 
 https://www.youtube.com/watch?v=8d75-sTi4UI&list=PLIGDNOJWiL1_AhUGgmwz7RhyXwX5aVLj4
 
