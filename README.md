@@ -1,3 +1,33 @@
+import subprocess
+from pathlib import Path
+
+def executar_script_powershell():
+    try:
+        resultado = subprocess.run(["powershell.exe", "-File", "mapeamento.ps1"], capture_output=True, text=True, check=True)
+        return resultado.stdout
+    except subprocess.CalledProcessError as e:
+        print(f"Erro ao executar o script: {e}")
+        return None
+
+def processar_resultado_do_powershell():
+    saida = executar_script_powershell()
+    if saida:
+        for linha in saida.split('\n'):
+            caminho = linha.strip()
+            if caminho:
+                processar_caminho(caminho)
+
+def processar_caminho(caminho):
+    caminho = Path(caminho)
+    if caminho.is_file():
+        # Implemente a lógica para processar o arquivo
+        print(f"Arquivo: {caminho}")
+    elif caminho.is_dir():
+        # Implemente a lógica para processar o diretório
+        print(f"Diretório: {caminho}")
+
+processar_resultado_do_powershell()
+
 ## Nest JS Tutorials 
 https://www.youtube.com/watch?v=8d75-sTi4UI&list=PLIGDNOJWiL1_AhUGgmwz7RhyXwX5aVLj4
 
