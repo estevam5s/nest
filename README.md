@@ -1,31 +1,3 @@
-def process_shapefiles1(self, diretorio_raiz):
-    id_atual = 1  # Inicia o contador de ID
-    local_pc = _determinar_local_pc()
-    for root, dirs, files in os.walk(diretorio_raiz):
-        for arquivo_ou_diretorio in files:
-            caminho_completo = Path(root) / arquivo_ou_diretorio
-            extensao = caminho_completo.suffix.lower()
-            nome = caminho_completo.stem
-            __pasta = ShapeProject()
-            pasta = __pasta._modificar_nome_pasta(nome)
-            destino = Path(local_pc, pasta, caminho_completo.name)
-            # destino.parent.mkdir(parents=True, exist_ok=True)  # Comentado para evitar criação de diretórios
-            # shutil.copy(caminho_completo, destino)  # Comentado para evitar cópia de arquivos
-            __origem__destino = ShapeProject()
-            origem = __origem__destino._normalizar_caminho(caminho_completo)
-            destino = __origem__destino._normalizar_caminho(destino)
-            if extensao == ".shp":
-                nome_sem_extensao = re.sub(r'\.shp$', '', nome)
-                origem_sem_nome_arquivo = re.sub(r'/[^/]+\.shp$', '/', origem)
-                origem_sem_parte_especifica = re.sub(r'^//nas\.ibge\.gov\.br/DGC-ACERVO-CCAR2/CONVERSAO_DIGITAL/CCAR_PRODUTOS_VETOR/Arquivos_Shape/CCAR_PRODUTOS_VETOR/', '', origem_sem_nome_arquivo)
-                destino_sem_nome_arquivo = re.sub(r'/[^/]+\.shp$', '/', destino)
-                latitude, longitude = LatitudeLongitude()._extract_lat_long(caminho_completo)
-                Crud().insert_data(nome_sem_extensao, origem_sem_parte_especifica, destino_sem_nome_arquivo, latitude, longitude)
-                print(f"\r{id_atual} | {nome_sem_extensao}.shp", end='')
-                id_atual += 1  # Incrementa o ID para a próxima iteração
-    print()
-
-
 ## Nest JS Tutorials 
 https://www.youtube.com/watch?v=8d75-sTi4UI&list=PLIGDNOJWiL1_AhUGgmwz7RhyXwX5aVLj4
 
