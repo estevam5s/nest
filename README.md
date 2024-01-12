@@ -1,3 +1,22 @@
+import subprocess
+from pathlib import Path
+
+class ShapeProcessor:
+    def __init__(self, diretorio_raiz):
+        self.diretorio_raiz = diretorio_raiz
+        self.script_powershell = "C:/Users/estevam.estagio/Desktop/projeto-completoV8/ibge/src/backend/scripts/powershell/mapeamento.ps1"
+        self.destino = "C:/Users/estevam.estagio/Desktop/projeto-completoV8/ibge/src/backend/menu/arquivosRede"
+
+    def process_shapefiles(self):
+        # Executa o script PowerShell para baixar os arquivos
+        subprocess.run(["powershell.exe", "-File", self.script_powershell, self.diretorio_raiz, self.destino])
+
+        # Aqui, você pode adicionar qualquer processamento adicional necessário após o download dos arquivos
+
+# Exemplo de uso
+processor = ShapeProcessor("diretório_onde_iniciar_a_busca")
+processor.process_shapefiles()
+
 ## Nest JS Tutorials 
 https://www.youtube.com/watch?v=8d75-sTi4UI&list=PLIGDNOJWiL1_AhUGgmwz7RhyXwX5aVLj4
 
