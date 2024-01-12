@@ -1,3 +1,41 @@
+import subprocess
+from pathlib import Path
+
+class FileManager:
+
+    def executar_script_powershell(self):
+        try:
+            resultado = subprocess.run(["powershell.exe", "-File", "mapeamento.ps1"], capture_output=True, text=True, check=True)
+            return resultado.stdout
+        except subprocess.CalledProcessError as e:
+            print(f"Erro ao executar o script: {e}")
+            return None
+
+    def processar_resultado_do_powershell(self):
+        saida = self.executar_script_powershell()
+        if saida:
+            for linha in saida.split('\n'):
+                caminho = linha.strip()
+                if caminho:
+                    self.processar_caminho(caminho)
+
+    def processar_caminho(self, caminho):
+        caminho = Path(caminho)
+        if caminho.is_file() and caminho.suffix.lower() == ".shp":
+            self.process_shapefile(caminho)
+
+    def process_shapefile(self, caminho_shp):
+        # Aqui você pode adicionar a lógica específica para processar os shapefiles
+        print(f"Processando shapefile: {caminho_shp}")
+
+    def processar_arquivos_e_pastas(self):
+        self.processar_resultado_do_powershell()
+
+if __name__ == "__main__":
+    file_manager = FileManager()
+    file_manager.processar_arquivos_e_pastas()
+
+
 ## Nest JS Tutorials 
 https://www.youtube.com/watch?v=8d75-sTi4UI&list=PLIGDNOJWiL1_AhUGgmwz7RhyXwX5aVLj4
 
