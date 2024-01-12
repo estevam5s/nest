@@ -1,3 +1,28 @@
+
+import os
+from pathlib import Path
+import re
+
+def process_shapefiles(self, diretorio_raiz):
+    id_atual = 1  # Inicia o contador de ID
+    local_pc = self._determinar_local_pc()
+    for root, dirs, files in os.walk(diretorio_raiz):
+        for arquivo_ou_diretorio in files:
+            caminho_completo = Path(root) / arquivo_ou_diretorio
+            extensao = caminho_completo.suffix.lower()
+            if extensao == ".shp":
+                caminho_modificado = re.sub(r'.*projeto ma_pa/', 'projeto ma_pa/', str(caminho_completo))
+                caminho_modificado = re.sub(r'\\Hidrografia.*', '/Hidrografia', caminho_modificado.replace('\\', '/'))
+                nome_sem_extensao = re.sub(r'\.shp$', '', caminho_modificado)
+                latitude, longitude = self.LatitudeLongitude()._extract_lat_long(caminho_completo)
+                self.Crud().insert_data(nome_sem_extensao, str(caminho_completo), str(caminho_modificado), latitude, longitude)
+                print(f"\r{id_atual} | {nome_sem_extensao}.shp", end='')
+                id_atual += 1  # Incrementa o ID para a próxima iteração
+                time.sleep(0.01)  # Adiciona um pequeno atraso para garantir que o terminal seja atualizado
+            else:
+                time.sleep(0.01)  # Adiciona um pequeno atraso para garantir que o terminal seja atualizado
+
+
 ## Nest JS Tutorials 
 https://www.youtube.com/watch?v=8d75-sTi4UI&list=PLIGDNOJWiL1_AhUGgmwz7RhyXwX5aVLj4
 
